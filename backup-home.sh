@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ####################################################
 #
@@ -15,6 +15,8 @@
 # Version: 0.2
 #
 ####################################################
+
+set +x
 
 # Variablen
 user_to_backup=$1
@@ -34,32 +36,43 @@ if [ $(id -u) -ne 0 ]; then
 fi
 
 
-# Prüfung, ob Parameter übergeben wurde
-if [ -z $user_to_backup ]; then
-	echo
-	echo "Das Skript wurde ohne Angabe eines zu sichernden Heimatverzeichnisses aufgerufen." 
-	echo "Bitte den Benutzernamen des Users angeben, dessen Heimatverzeichnis gesichert werden soll:"
-	read -p ">>> "  user_to_backup
-	echo
-	echo "Das Skript kann auch direkt in der folgenden Form aufgerfufen werden:"
-	echo "./backup.sh <username>"
-	echo
-fi
+while true; do
+	# Prüfung, ob Parameter übergeben wurde
+	if [ -z $user_to_backup ]; then
+		echo
+		echo "Das Skript wurde ohne Angabe eines zu sichernden Heimatverzeichnisses aufgerufen." 
+		echo "Bitte den Benutzernamen des Users angeben, dessen Heimatverzeichnis gesichert werden soll:"
+		read -p ">>> "  user_to_backup
+		echo
+		echo "Das Skript kann auch direkt in der folgenden Form aufgerfufen werden:"
+		echo "./backup.sh <username>"
+		echo
+	fi
 
 
-# TODO: Script durch Aufruf von '_backup` starten, nicht mit kompletten Pfad 
+	# TODO: Script durch Aufruf von '_backup` starten, nicht mit kompletten Pfad 
 
-# Prüfung, ob Benutzer/Heimatverzeichnis existiert
-if [ ! -d /home/${user_to_backup} ]
-then
-	echo
-	echo "Heimatverzeichnis /home/${user_to_backup} existiert nicht"
-	# TODO: Farbig ausgeben (rot)
-	echo "Abbruch"
-	echo
-	# Skript wird mit Fehlercode 1 abgebrochen
-	exit 1
-fi
+	# Prüfung, ob Benutzer/Heimatverzeichnis existiert
+	if [ ! -d /home/${user_to_backup} ]
+	then
+		echo
+		echo "Heimatverzeichnis /home/${user_to_backup} existiert nicht"
+		# Varialbe muss neu gesetzt werden, ansonsten landen wir
+		# in einem Endlosloop
+		read -p "Bitte erneut eingeben: " user_to_backup
+
+		# Alternativ wäre auch folgendes möglich:
+		# Wir leeren die Variable user_to_backup
+		#echo "Bitte erneut eingeben: "
+		#unset user_to_backup
+
+		echo
+	else
+		# Heimatverzeichnis existiert, verlasse die while Schleife
+		# und führe den Rest des Skriptes aus
+		break
+	fi
+done
 
 echo
 echo "Starte Backup des Heimatverzeichnisses /home/${user_to_backup}"
