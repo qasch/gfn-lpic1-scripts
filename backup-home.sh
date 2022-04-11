@@ -57,16 +57,39 @@ while true; do
 	then
 		echo
 		echo "Heimatverzeichnis /home/${user_to_backup} existiert nicht"
-		# Varialbe muss neu gesetzt werden, ansonsten landen wir
-		# in einem Endlosloop
-		read -p "Bitte erneut eingeben: " user_to_backup
-
-		# Alternativ wäre auch folgendes möglich:
-		# Wir leeren die Variable user_to_backup
-		#echo "Bitte erneut eingeben: "
-		#unset user_to_backup
 
 		echo
+		echo "Soll das Skript beendet werden oder der Benutzer erneut eingegeben werden?"
+		echo
+		echo "Skript [b]eenden"
+		echo "[N]euen Benutzernamen eingeben"
+		echo
+		read -p "Eingabe: " input
+
+		if [ $input = "b" ];then
+			echo "Okay, Skript wird beendet. Ahoi!"
+			exit 0
+		# else if
+		# Prüfung mittels regulärem Ausdruck
+		# Achtung: Doppelte Klammern verwenden,
+		# geht nur in BASH, nicht sh
+		# Keine Anführungszeichen um den regulären Ausdruck 
+		#elif [[ $input =~ [nN] ]]; then
+
+		elif [ $input = "N" ] || [ $input = "n" ]; then
+			# Varialbe muss neu gesetzt werden, ansonsten landen wir
+			# in einem Endlosloop
+			read -p "Bitte erneut eingeben: " user_to_backup
+			echo
+
+			# Alternativ wäre auch folgendes möglich:
+			# Wir leeren die Variable user_to_backup
+			#echo "Bitte erneut eingeben: "
+			#unset user_to_backup
+		else
+			echo "Eingabe ist ungültig"
+		fi
+
 	else
 		# Heimatverzeichnis existiert, verlasse die while Schleife
 		# und führe den Rest des Skriptes aus
