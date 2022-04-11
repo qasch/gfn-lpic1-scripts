@@ -37,12 +37,13 @@ fi
 # Prüfung, ob Parameter übergeben wurde
 if [ -z $user_to_backup ]; then
 	echo
-	echo "Fehler: Skript wurde ohne Parameter aufgerufen. Abbruch."
+	echo "Das Skript wurde ohne Angabe eines zu sichernden Heimatverzeichnisses aufgerufen." 
+	echo "Bitte den Benutzernamen des Users angeben, dessen Heimatverzeichnis gesichert werden soll:"
+	read -p ">>> "  user_to_backup
 	echo
-	echo "Skript muss in der folgenden Form aufgerfufen werden:"
+	echo "Das Skript kann auch direkt in der folgenden Form aufgerfufen werden:"
 	echo "./backup.sh <username>"
 	echo
-	exit 1
 fi
 
 
