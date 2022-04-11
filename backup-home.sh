@@ -16,6 +16,8 @@
 #
 ####################################################
 
+# TODO: Script durch Aufruf von '_backup` starten, nicht mit kompletten Pfad 
+
 set +x
 
 # Variablen
@@ -36,6 +38,8 @@ if [ $(id -u) -ne 0 ]; then
 fi
 
 
+# bewusst konstruierte Endlosschleife, um immer wieder die folgenden Prüfungen
+# zu vollziehen
 while true; do
 	# Prüfung, ob Parameter übergeben wurde
 	if [ -z $user_to_backup ]; then
@@ -48,9 +52,6 @@ while true; do
 		echo "./backup.sh <username>"
 		echo
 	fi
-
-
-	# TODO: Script durch Aufruf von '_backup` starten, nicht mit kompletten Pfad 
 
 	# Prüfung, ob Benutzer/Heimatverzeichnis existiert
 	if [ ! -d /home/${user_to_backup} ]
