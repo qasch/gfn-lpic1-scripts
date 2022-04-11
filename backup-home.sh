@@ -54,6 +54,8 @@ while true; do
 	fi
 
 	# Prüfung, ob Benutzer/Heimatverzeichnis existiert
+	# TODO: Benutzer eine Auswahl existierender Heimatverzeichnisse 
+	# zur Auswahl anzeigen
 	if [ ! -d /home/${user_to_backup} ]
 	then
 		echo
@@ -66,7 +68,6 @@ while true; do
 		echo "[N]euen Benutzernamen eingeben"
 		echo
 		read -p "Eingabe: " input
-
 		
 		# Einzeiler, gleiche Funktionalität wie if Zweig / 
 		# folgende (drei) Zeilen
@@ -108,6 +109,11 @@ echo
 echo "Starte Backup des Heimatverzeichnisses /home/${user_to_backup}"
 echo "Das Backup wird ausgeführt vom Benutzer ${USER}."
 echo
+
+# TODO: Ideen:
+#  - bestimmte Dateien (cache, git/Revisionskontrolle etc. von der Sicherung ausschliessen
+#  - nur geänderte Dateien in Sicherung übernehmen (?) geht das mit tar? evtl. anderes Tool?
+#  - Benutzer nach Backupzielverzeichnis fragen 
 
 # komprimiertes Archiv des Heimatverzeichnisses erstellen
 tar -czf ${archiv_datei} /home/${user_to_backup} 2>/dev/null
