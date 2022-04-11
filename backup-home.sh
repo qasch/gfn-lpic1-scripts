@@ -17,14 +17,14 @@
 ####################################################
 
 # Variablen
-user=$1
+user_to_backup=$1
 datum=$(date "+%Y%m%d")
-archiv_datei=home_${user}_${datum}.tar.gz
+archiv_datei=home_${user_to_backup}_${datum}.tar.gz
 backup_dir=/root/backup/
 
 
 # Prüfung, ob Parameter übergeben wurde
-if [ -z $user ]; then
+if [ -z $user_to_backup ]; then
 	echo
 	echo "Fehler: Skript wurde ohne Parameter aufgerufen. Abbruch."
 	echo
@@ -35,29 +35,35 @@ if [ -z $user ]; then
 fi
 
 
+
 # TODO: Prüfung, ob mit root-Rechten ausgeführt
+
+
+
+
+
 # TODO: Script durch Aufruf von '_backup` starten, nicht mit kompletten Pfad 
 
 # Prüfung, ob Benutzer/Heimatverzeichnis existiert
 # TODO: andere if-Syntax verwenden
-if [ ! -d /home/${user} ]
+if [ ! -d /home/${user_to_backup} ]
 then
-	echo "Heimatverzeichnis /home/${user} existiert nicht"
+	echo "Heimatverzeichnis /home/${user_to_backup} existiert nicht"
 	# TODO: Farbig ausgeben (rot)
 	echo "Abbruch"
 	# Skript wird mit Fehlercode 1 abgebrochen
 	exit 1
 fi
 
-echo "Starte Backup des Heimatverzeichnisses /home/${user}"
+echo "Starte Backup des Heimatverzeichnisses /home/${user_to_backup}"
 echo "Das Backup wird ausgeführt vom Benutzer ${USER}."
 
 # komprimiertes Archiv des Heimatverzeichnisses erstellen
-tar -czf ${archiv_datei} /home/${user} 2>/dev/null
+tar -czf ${archiv_datei} /home/${user_to_backup} 2>/dev/null
 
 mkdir -p ${backup_dir}
 
 echo "Verschiebe Archiv in Verzeichnis /root/backup"
 mv ${archiv_datei} ${backup_dir}
 
-echo "Backup für ${user} erfolgreich erstellt"
+echo "Backup für ${user_to_backup} erfolgreich erstellt"
