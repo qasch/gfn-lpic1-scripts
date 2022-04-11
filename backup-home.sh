@@ -36,16 +36,18 @@ fi
 
 
 
-# TODO: Prüfung, ob mit root-Rechten ausgeführt
-
-
-
+# Prüfung, ob Skrip mit root-Rechten ausgeführt wird
+# Hier findet ein Vergleich von zwei Integer Werten (Zahlen) statt, kein Vergleich zweier Strings
+if [ $(id -u) -ne 0 ]; then
+	echo "Das Skript muss mit Root-Rechten ausgeführt werden."
+	echo "Abbruch."
+	exit 1	
+fi
 
 
 # TODO: Script durch Aufruf von '_backup` starten, nicht mit kompletten Pfad 
 
 # Prüfung, ob Benutzer/Heimatverzeichnis existiert
-# TODO: andere if-Syntax verwenden
 if [ ! -d /home/${user_to_backup} ]
 then
 	echo "Heimatverzeichnis /home/${user_to_backup} existiert nicht"
