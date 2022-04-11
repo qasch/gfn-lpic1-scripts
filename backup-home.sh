@@ -24,8 +24,7 @@ backup_dir=/root/backup/
 
 
 # Prüfung, ob Parameter übergeben wurde
-if test -z $user
-then
+if [ -z $user ]; then
 	echo
 	echo "Fehler: Skript wurde ohne Parameter aufgerufen. Abbruch."
 	echo
@@ -41,7 +40,7 @@ fi
 
 # Prüfung, ob Benutzer/Heimatverzeichnis existiert
 # TODO: andere if-Syntax verwenden
-if test ! -d /home/${user}
+if [ ! -d /home/${user} ]
 then
 	echo "Heimatverzeichnis /home/${user} existiert nicht"
 	# TODO: Farbig ausgeben (rot)
