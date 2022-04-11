@@ -67,6 +67,10 @@ while true; do
 		echo
 		read -p "Eingabe: " input
 
+		
+		# Einzeiler, gleiche Funktionalität wie if Zweig / 
+		# folgende (drei) Zeilen
+		#[ $input = "b" ] && echo "Na dann nicht." && exit 0
 		if [ $input = "b" ];then
 			echo "Okay, Skript wird beendet. Ahoi!"
 			exit 0
@@ -76,7 +80,9 @@ while true; do
 		# geht nur in BASH, nicht sh
 		# Keine Anführungszeichen um den regulären Ausdruck 
 		#elif [[ $input =~ [nN] ]]; then
-
+ 
+		# Einzeiler, gleich Funktionalität wie folgenden (vier) Zeilen
+		#[[ $input =~ [nN] ]] && read -p "Erneute Eingabe: " user_to_backup
 		elif [ $input = "N" ] || [ $input = "n" ]; then
 			# Varialbe muss neu gesetzt werden, ansonsten landen wir
 			# in einem Endlosloop
