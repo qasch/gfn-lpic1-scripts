@@ -23,6 +23,17 @@ archiv_datei=home_${user_to_backup}_${datum}.tar.gz
 backup_dir=/root/backup/
 
 
+# Prüfung, ob Skrip mit root-Rechten ausgeführt wird
+# Hier findet ein Vergleich von zwei Integer Werten (Zahlen) statt, kein Vergleich zweier Strings
+if [ $(id -u) -ne 0 ]; then
+	echo
+	echo "Das Skript muss mit Root-Rechten ausgeführt werden."
+	echo "Abbruch."
+	echo
+	exit 1	
+fi
+
+
 # Prüfung, ob Parameter übergeben wurde
 if [ -z $user_to_backup ]; then
 	echo
@@ -32,18 +43,6 @@ if [ -z $user_to_backup ]; then
 	echo "./backup.sh <username>"
 	echo
 	exit 1
-fi
-
-
-
-# Prüfung, ob Skrip mit root-Rechten ausgeführt wird
-# Hier findet ein Vergleich von zwei Integer Werten (Zahlen) statt, kein Vergleich zweier Strings
-if [ $(id -u) -ne 0 ]; then
-	echo
-	echo "Das Skript muss mit Root-Rechten ausgeführt werden."
-	echo "Abbruch."
-	echo
-	exit 1	
 fi
 
 
