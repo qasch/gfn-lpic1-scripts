@@ -22,15 +22,29 @@ datum=$(date "+%Y%m%d")
 archiv_datei=home_${user}_${datum}.tar.gz
 backup_dir=/root/backup/
 
-# TODO: Prüfung, ob Benutzer übergeben wurde
+
+# Prüfung, ob Parameter übergeben wurde
+if test -z $user
+then
+	echo
+	echo "Fehler: Skript wurde ohne Parameter aufgerufen. Abbruch."
+	echo
+	echo "Skript muss in der folgenden Form aufgerfufen werden:"
+	echo "./backup.sh <username>"
+	echo
+	exit 1
+fi
+
+
 # TODO: Prüfung, ob mit root-Rechten ausgeführt
 # TODO: Script durch Aufruf von '_backup` starten, nicht mit kompletten Pfad 
-# TODO: git einrichten
 
 # Prüfung, ob Benutzer/Heimatverzeichnis existiert
+# TODO: andere if-Syntax verwenden
 if test ! -d /home/${user}
 then
 	echo "Heimatverzeichnis /home/${user} existiert nicht"
+	# TODO: Farbig ausgeben (rot)
 	echo "Abbruch"
 	# Skript wird mit Fehlercode 1 abgebrochen
 	exit 1
