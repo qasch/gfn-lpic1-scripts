@@ -7,12 +7,12 @@
 # Erstellt ein gzip komprimiertes tar-Archiv
 # des Heimatverzeichnisses eines Benutzers.
 # 
-# Hinweis: Der Benutzername muss dem Skrip beim Aufruf
-# übergeben werden.
+# Hinweis: Der Benutzername kann dem Skrip direkt beim Aufruf
+# übergeben werden. Ansonsten erfolgt eine Abfrage.
 # 
 # Author: Gfn Kurs LPIC1
-# Datum: 08.04.2022
-# Version: 0.2
+# Datum: 11.04.2022
+# Version: 0.5
 #
 ####################################################
 
